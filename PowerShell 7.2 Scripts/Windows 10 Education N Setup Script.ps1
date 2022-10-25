@@ -16,9 +16,42 @@ function UnpinTaskbar {
 }
 
 
+# Create Shortcut
+function MakeDesktopShortcut {
+    param (
+        [string]$SourceExe, [string]$Name, $IconNumber, [switch] $Admin
+    )
+
+    $WshShell = New-Object -comObject WScript.Shell
+    $Shortcut = $WshShell.CreateShortcut("$HOME\Desktop\$Name.lnk")
+    $Shortcut.TargetPath = $SourceExe
+
+    # Give Shortcut custom Icon.
+    if ($IconNumber) {
+        $shortcut.IconLocation = "shell32.dll,$IconNumber"
+    }
+
+    $Shortcut.Save()
+
+    # Make shortcut to open as Admin
+    if ($Admin) {
+    $bytes = [System.IO.File]::ReadAllBytes("$HOME\Desktop\$Name.lnk")
+    $bytes[0x15] = $bytes[0x15] -bor 0x20 #set byte 21 (0x15) bit 6 (0x20) ON
+    [System.IO.File]::WriteAllBytes("$HOME\Desktop\$Name.lnk", $bytes)
+    }
+}
+
+
 # Remove default Taskbar pin.
 UnpinTaskbar -appname "Microsoft Store"
 UnpinTaskbar -appname "Mail"
+
+
+# Make Desktop Shortcut.
+MakeDesktopShortcut -SourceExe ncpa.cpl -Name "Network Connection" -IconNumber 164
+MakeDesktopShortcut -SourceExe sysdm.cpl -Name "System Properties" -IconNumber 272
+MakeDesktopShortcut -SourceExe "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -Name "PowerShell Admin" -Admin
+
 
 
 <# !! Not working because permission denied by WMI
@@ -46,6 +79,15 @@ New-ItemProperty -Path 'HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Nam
 
 # Set Danish keyboard.
 Set-WinUserLanguageList -LanguageList en-DK -Force
+
+
+# Make Powershell profile.
+if (test-path $PROFILE) {
+    Write-Output "Powershell Profile exist already."
+}
+else {
+    New-Item -Path $profile -Type File -Force
+}
 
 
 Restart-Computer

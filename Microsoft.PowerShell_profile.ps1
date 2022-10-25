@@ -9,18 +9,13 @@
 # Alias
 # ======================================================================
 
-# Show configuration file menu.
-Set-Alias conf configFileMenu
-
-Set-Alias findfile FindFilePrompt
-
 
 # ======================================================================
 # Scripts
 # ======================================================================
 
 # Show Hidden files in directory.
-function la { (Get-ChildItem -Force).Name }
+function la { (Get-ChildItem -Force) }
 
 
 # Prompt Find-Filetype function
@@ -58,7 +53,9 @@ function Get-Config {
 
 # Find files in dir, based on specifyed type.
 function Find-Filetype {
-    param ( $filetype )
+    param (
+        $filetype
+    )
 
     $filewithtype = 0
 
