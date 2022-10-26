@@ -10,8 +10,9 @@
 Remove pinned programs.
 
 Syntax
-    Remove-TaskbarShortcut [-Appname] <string[]>
+    Remove-TaskbarShortcut -Appname "App Navn" -Admin
 
+    Admin is optional.
 #>
 
 function Remove-TaskbarShortcut {
@@ -31,8 +32,9 @@ function Remove-TaskbarShortcut {
 Make new Desktop shortcut.
 
 Syntax
-    New-DesktopShortcut [-SourceExe] <string[]> [-Name] <string[]> [-IconNumber] 164
+    New-DesktopShortcut -SourceExe "Path to .exe or file" -Name <Shortcut Name> -IconNumber <Number of shell32.dll icon>
 
+    IconNumber is optional.
 #>
 
 function New-DesktopShortcut {
