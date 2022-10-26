@@ -6,7 +6,8 @@
 # ===================================================================
 
 # Remove pinned programs.
-function UnpinTaskbar {
+
+function Remove-TaskbarShortcut {
     param (
         $appname
     )
@@ -18,9 +19,16 @@ function UnpinTaskbar {
 }
 
 # ====================================================================
+<#
 
-# Create Shortcut
-function MakeDesktopShortcut {
+Make new Desktop shortcut.
+
+Syntax
+    New-DesktopShortcut [-SourceExe] <string[]> [-Name] <string[]> [-IconNumber] 164
+
+#>
+
+function New-DesktopShortcut {
     param (
         [string]$SourceExe, [string]$Name, $IconNumber, [switch] $Admin
     )
@@ -31,23 +39,25 @@ function MakeDesktopShortcut {
 
     # Give Shortcut custom Icon.
     if ($IconNumber) {
-        $shortcut.IconLocation = "shell32.dll,$IconNumber"
+        $shortcut.IconLocation = "shell32.dll, $IconNumber"
     }
 
     $Shortcut.Save()
 
     # Make shortcut to open as Admin
     if ($Admin) {
-    $bytes = [System.IO.File]::ReadAllBytes("$HOME\Desktop\$Name.lnk")
-    # Set byte 21 (0x15) bit 6 (0x20) ON
-    $bytes[0x15] = $bytes[0x15] -bor 0x20 
-    [System.IO.File]::WriteAllBytes("$HOME\Desktop\$Name.lnk", $bytes)
+        $bytes = [System.IO.File]::ReadAllBytes("$HOME\Desktop\$Name.lnk")
+        # Set byte 21 (0x15) bit 6 (0x20) ON
+        $bytes[0x15] = $bytes[0x15] -bor 0x20 
+        [System.IO.File]::WriteAllBytes("$HOME\Desktop\$Name.lnk", $bytes)
     }
 }
 
 # ====================================================================
 
-Function TaskbarDebloat {
+# Change Registry DWORD to make Taskbar less cluttered. 
+
+function Set-MinimalTaskbar {
 # Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name TaskbarSmallIcons -Value 1
 Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name ShowCortanaButton -Value 0
 Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name ShowTaskViewButton -Value 0
@@ -60,20 +70,21 @@ New-ItemProperty -Path 'HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Nam
 
 # ====================================================================
 
-function CreateProfile {
-    # Make Powershell profile.
-    if (test-path $PROFILE) {
+# Make PowerShell Profile if it doesn't exist.
+
+function New-Profile {
+    if (Test-Path $PROFILE) {
         Write-Output "Powershell Profile exist already."
     }
     else {
-        New-Item -Path $profile -Type File -Force
+        New-Item -Path $PROFILE -Type File -Force
     }
 }
 
 # ====================================================================
 
-function NetworkConfig {
-# Set static IP or use DHCP
+function Set-NetworkConfig {
+    # Set static IP or use DHCP
 }
 
 # ====================================================================
@@ -92,21 +103,19 @@ function NetworkConfig {
 # ====================================================================
 
 # Remove default Taskbar pinned programs.
-UnpinTaskbar -appname "Microsoft Store"
-UnpinTaskbar -appname "Mail"
+Remove-TaskbarShortcut -appname "Microsoft Store"
+Remove-TaskbarShortcut -appname "Mail"
 
-# Make Desktop Shortcuts.
-MakeDesktopShortcut -SourceExe ncpa.cpl -Name "Network Connection" -IconNumber 164
-MakeDesktopShortcut -SourceExe sysdm.cpl -Name "System Properties" -IconNumber 272
-MakeDesktopShortcut -SourceExe "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -Name "PowerShell Admin" -Admin
+New-DesktopShortcut -SourceExe ncpa.cpl -Name "Network Connection" -IconNumber 164
+New-DesktopShortcut -SourceExe sysdm.cpl -Name "System Properties" -IconNumber 272
+New-DesktopShortcut -SourceExe "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -Name "PowerShell Admin" -Admin
 
-TaskbarDebloat
+Set-MinimalTaskbar
 
-CreateProfile
+New-Profile
 
 # Set Danish keyboard.
 Set-WinUserLanguageList -LanguageList en-DK -Force
-
 
 # End script by Restarting the Computer.
 Restart-Computer
