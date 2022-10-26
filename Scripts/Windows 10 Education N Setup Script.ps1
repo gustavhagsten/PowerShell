@@ -1,24 +1,31 @@
 # Gustav Hagsten Larsen
 # PowerShell setup script :: Windows 10 Education N
 
-
+# ===================================================================
 # Functions
 # ===================================================================
 
-# Remove pinned programs.
+<#
+
+Remove pinned programs.
+
+Syntax
+    Remove-TaskbarShortcut [-Appname] <string[]>
+
+#>
 
 function Remove-TaskbarShortcut {
     param (
-        $appname
+        $Appname
     )
 
     ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items() |
-        Where-Object{$_.Name -eq $appname}).Verbs() |
+        Where-Object{$_.Name -eq $Appname}).Verbs() |
             Where-Object{$_.Name.replace('&','') -match 'Unpin from taskbar'} |
                 ForEach-Object{$_.DoIt(); $exec = $true} 
 }
 
-# ====================================================================
+
 <#
 
 Make new Desktop shortcut.
@@ -53,7 +60,6 @@ function New-DesktopShortcut {
     }
 }
 
-# ====================================================================
 
 # Change Registry DWORD to make Taskbar less cluttered. 
 
@@ -68,7 +74,6 @@ New-Item -Path 'HKCU:\SOFTWARE\Policies\Microsoft\Windows\' -Name Explorer
 New-ItemProperty -Path 'HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Name DisableNotificationCenter -Value 1 -PropertyType DWord
 }
 
-# ====================================================================
 
 # Make PowerShell Profile if it doesn't exist.
 
@@ -81,17 +86,16 @@ function New-Profile {
     }
 }
 
-# ====================================================================
+
+# Set static IP or use DHCP
 
 function Set-NetworkConfig {
-    # Set static IP or use DHCP
+
 }
 
-# ====================================================================
 
-<# !! Not working because permission denied by WMI
+<# Unpin Startmenu pin      !! Not working because permission denied by WMI
 
-# Unpin Startmenu pin.
 (New-Object -Com Shell.Application).
     NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').
     Items() |
@@ -99,6 +103,7 @@ function Set-NetworkConfig {
     Where-Object{$_.Name -match 'Un.*pin from Start'} |
     ForEach-Object{$_.DoIt()}
 #>
+
 
 # ====================================================================
 
