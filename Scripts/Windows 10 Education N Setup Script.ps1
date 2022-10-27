@@ -2,19 +2,13 @@
 # PowerShell setup script :: Windows 10 Education N
 
 # ===================================================================
-# Functions
-# ===================================================================
+#region Function
 
-<#
-
-Remove pinned programs.
+<# Remove pinned programs.
 
 Syntax
     Remove-TaskbarShortcut -Appname "App Navn" -Admin
-
-    Admin is optional.
 #>
-
 function Remove-TaskbarShortcut {
     param (
         $Appname
@@ -27,19 +21,16 @@ function Remove-TaskbarShortcut {
 }
 
 
-<#
+<# Make new Desktop shortcut.
 
-Make new Desktop shortcut.
+    Syntax
+        New-DesktopShortcut -SourceExe "Path to .exe or file" -Name <Shortcut Name> -IconNumber <Number of shell32.dll icon>
 
-Syntax
-    New-DesktopShortcut -SourceExe "Path to .exe or file" -Name <Shortcut Name> -IconNumber <Number of shell32.dll icon>
-
-    IconNumber is optional.
+    IconNumber and Admin is optional.
 #>
-
 function New-DesktopShortcut {
     param (
-        [string]$SourceExe, [string]$Name, $IconNumber, [switch] $Admin
+        [string] $SourceExe, [string] $Name, [int] $IconNumber, [switch] $Admin
     )
 
     $WshShell = New-Object -comObject WScript.Shell
@@ -89,33 +80,89 @@ function New-Profile {
 }
 
 
-# Set static IP or use DHCP
+<# ToDo
 
-function Set-NetworkConfig {
-
-}
-
-
-<# Unpin Startmenu pin      !! Not working because permission denied by WMI
-
-(New-Object -Com Shell.Application).
-    NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').
-    Items() |
-    ForEach-Object{ $_.Verbs() } |
-    Where-Object{$_.Name -match 'Un.*pin from Start'} |
-    ForEach-Object{$_.DoIt()}
+    Set static IP or use DHCP.
+    Gui Menu with checkbox list.
 #>
 
-
+#endregion
 # ====================================================================
+#region Menu
+
+# Start script prompt.
+$Start = New-Object System.Management.Automation.Host.ChoiceDescription '&Start', 'Start script with all settings.'
+$GUI = New-Object System.Management.Automation.Host.ChoiceDescription '&Custom', 'Customize script to suit your own needs.'
+$Exit = New-Object System.Management.Automation.Host.ChoiceDescription '&Quit', 'Exit process'
+
+$options = [System.Management.Automation.Host.ChoiceDescription[]]($Start, $GUI, $Exit)
+
+$title = 'Windows 10 Education N Setup Script'
+$message = 'Do you want to start setup script now?'
+$Prompt = $host.ui.PromptForChoice($title, $message, $options, 0)
+
+switch ($Prompt) {
+    0 {}
+    1 { GUI }
+    2 { Exit 0 }
+}
+
+#endregion
+# ======================================================================
+#region GUI
+
+function GUI {
+
+    Add-Type -AssemblyName System.Windows.Forms
+    [System.Windows.Forms.Application]::EnableVisualStyles()
+
+    $SetupScript                     = New-Object system.Windows.Forms.Form
+    $SetupScript.ClientSize          = New-Object System.Drawing.Point(250,400)
+    $SetupScript.text                = "Form"
+    $SetupScript.TopMost             = $false
+
+    $Taskbar                         = New-Object system.Windows.Forms.CheckBox
+    $Taskbar.text                    = "Remove pinned programs"
+    $Taskbar.AutoSize                = $false
+    $Taskbar.width                   = 95
+    $Taskbar.height                  = 20
+    $Taskbar.location                = New-Object System.Drawing.Point(30,45)
+    $Taskbar.Font                    = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+
+    $Start                           = New-Object system.Windows.Forms.Button
+    $Start.text                      = "Start"
+    $Start.width                     = 60
+    $Start.height                    = 30
+    $Start.location                  = New-Object System.Drawing.Point(30,330)
+    $Start.Font                      = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+    $Start.ForeColor                 = [System.Drawing.ColorTranslator]::FromHtml("")
+    $Start.BackColor                 = [System.Drawing.ColorTranslator]::FromHtml("#c3daa7")
+
+    $Cancel                          = New-Object system.Windows.Forms.Button
+    $Cancel.text                     = "Cancel"
+    $Cancel.width                    = 60
+    $Cancel.height                   = 30
+    $Cancel.location                 = New-Object System.Drawing.Point(140,330)
+    $Cancel.Font                     = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+
+    $SetupScript.controls.AddRange(@($Taskbar,$Start,$Cancel))
+
+    [void]$SetupScript.ShowDialog()
+}
+
+#endregion
+# ======================================================================
+#region Commands
 
 # Remove default Taskbar pinned programs.
-Remove-TaskbarShortcut -appname "Microsoft Store"
-Remove-TaskbarShortcut -appname "Mail"
+Remove-TaskbarShortcut -Appname "Microsoft Store"
+Remove-TaskbarShortcut -Appname "Mail"
 
+New-DesktopShortcut -SourceExe "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -Name "PowerShell Admin" -Admin
+New-DesktopShortcut -SourceExe "C:\Windows\system32\notepad.exe" -Name "Notepad"
 New-DesktopShortcut -SourceExe ncpa.cpl -Name "Network Connection" -IconNumber 164
 New-DesktopShortcut -SourceExe sysdm.cpl -Name "System Properties" -IconNumber 272
-New-DesktopShortcut -SourceExe "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -Name "PowerShell Admin" -Admin
+New-DesktopShortcut -SourceExe compmgmt.msc -Name "Computer Management"
 
 Set-MinimalTaskbar
 
@@ -123,6 +170,9 @@ New-Profile
 
 # Set Danish keyboard.
 Set-WinUserLanguageList -LanguageList en-DK -Force
+
+#endregion
+# ======================================================================
 
 # End script by Restarting the Computer.
 Restart-Computer
