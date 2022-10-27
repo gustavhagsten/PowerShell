@@ -118,16 +118,17 @@ function GUI {
 
     $SetupScript                     = New-Object system.Windows.Forms.Form
     $SetupScript.ClientSize          = New-Object System.Drawing.Point(250,400)
-    $SetupScript.text                = "Form"
+    $SetupScript.text                = "Custom Script"
     $SetupScript.TopMost             = $false
 
     $Taskbar                         = New-Object system.Windows.Forms.CheckBox
     $Taskbar.text                    = "Remove pinned programs"
     $Taskbar.AutoSize                = $false
-    $Taskbar.width                   = 95
+    $Taskbar.width                   = 250
     $Taskbar.height                  = 20
     $Taskbar.location                = New-Object System.Drawing.Point(30,45)
     $Taskbar.Font                    = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+    $Taskbar.Checked                 = $true
 
     $Start                           = New-Object system.Windows.Forms.Button
     $Start.text                      = "Start"

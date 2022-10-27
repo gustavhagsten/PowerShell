@@ -12,6 +12,7 @@ function ExitButton {
 function StartButton {
     if ($checkbox1.Checked -eq $true) { Write-Host "Hello world!" }
     if ($checkbox2.Checked -eq $true) { Write-Host "Hello world!2" }
+
 }
 
 #endregion
@@ -22,7 +23,7 @@ Add-Type -AssemblyName System.Windows.Forms
 
 $Form                            = New-Object system.Windows.Forms.Form
 $Form.ClientSize                 = New-Object System.Drawing.Point(400,400)
-$Form.text                       = "Form"
+$Form.text                       = "Customize Setup"
 $Form.TopMost                    = $false
 
 $Start                           = New-Object system.Windows.Forms.Button
