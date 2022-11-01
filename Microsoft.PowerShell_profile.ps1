@@ -10,7 +10,7 @@
 # ======================================================================
 
 # Open Movie list form D drive.
-function mlist { notepad "D:\list\MovieList.txt" }
+function mlist { nvim "D:\list\MovieList.txt" }
 
 # ======================================================================
 # Scripts

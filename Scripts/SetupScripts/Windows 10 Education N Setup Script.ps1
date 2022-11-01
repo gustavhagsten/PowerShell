@@ -228,7 +228,9 @@ function GUI {
 
 #endregion
 # ======================================================================
-#region Menu
+GUI # Start in GUI mode
+
+<# Menu
 
 # Start script prompt.
 $Start = New-Object System.Management.Automation.Host.ChoiceDescription '&Start', 'Start script with all settings.'
@@ -247,5 +249,5 @@ switch ($Prompt) {
     2 { Exit 0 }
 }
 
-#endregion
+#>
 # ======================================================================
