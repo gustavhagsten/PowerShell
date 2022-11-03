@@ -78,7 +78,7 @@ New-ItemProperty -Path 'HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Nam
 }
 
 
-# Make PowerShell Profile if it doesn't exist.
+# Check if PowerShell PROFILE exist and make one.
 
 function New-Profile {
     if (Test-Path $PROFILE) {
