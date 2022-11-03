@@ -131,18 +131,6 @@ function Cancel {
     $SetupScript.Close()
 }
 
-function StartAll {
-    # if you start the script without custom option, run all options.
-    MinimalTaskbar
-    TaskbarShortcut
-    DesktopShortcut
-    PowerShell
-    Keyboard
-
-    # End script by Restarting the Computer.
-    Restart-Computer
-}
-
 #endregion
 # ======================================================================
 #region GUI
@@ -224,25 +212,4 @@ $SetupScript.controls.AddRange(@($MinimalTaskbar, $TaskbarShortcut, $DesktopShor
 [void]$SetupScript.ShowDialog()
 
 #endregion
-# ======================================================================
-<# Menu
-
-# Start script prompt.
-$Start = New-Object System.Management.Automation.Host.ChoiceDescription '&Start', 'Start script with all settings.'
-$GUI = New-Object System.Management.Automation.Host.ChoiceDescription '&Custom', 'Customize script to suit your needs.'
-$Exit = New-Object System.Management.Automation.Host.ChoiceDescription '&Quit', 'Exit process'
-
-$options = [System.Management.Automation.Host.ChoiceDescription[]]($Start, $GUI, $Exit)
-
-$title = 'Windows 10 Education N Setup Script'
-$message = 'Do you want to start setup script now?'
-$Prompt = $host.ui.PromptForChoice($title, $message, $options, 0)
-
-switch ($Prompt) {
-    0 { StartAll }
-    1 { GUI }
-    2 { Exit 0 }
-}
-
-#>
 # ======================================================================
