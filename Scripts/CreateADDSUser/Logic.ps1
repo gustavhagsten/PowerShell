@@ -8,9 +8,10 @@ $DC = Get-ADDomainController
 
 #>
 function CreateADDSUser{
-    param ( $Username, $GivenName, $Surname, $LoginName )
+    #Username is a made with $Firstname plus $Lastname
+    param ( $Username, $Firstname, $Lastname, $LoginName )
 
-    New-ADUser -Name $Username -GivenName $GivenName -Surname $Surname -SamAccountName $LoginName -Path "OU=DomainUsers,DC=DomainTest,DC=local" -AccountPassword(Read-Host -AsSecureString "Input Password") -Enabled $true
+    New-ADUser -Name $Username -GivenName $Firstname -Surname $Lastname -SamAccountName $LoginName -Path "OU=DomainUsers,DC=DomainTest,DC=local" -AccountPassword(Read-Host -AsSecureString "Input Password") -Enabled $true
 }
 
 <# Select OU and SG if it exits

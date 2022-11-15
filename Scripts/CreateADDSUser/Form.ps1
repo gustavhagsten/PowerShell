@@ -2,7 +2,7 @@ Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $SetupScript                     = New-Object system.Windows.Forms.Form
-$SetupScript.ClientSize          = New-Object System.Drawing.Point(375,370)
+$SetupScript.ClientSize          = New-Object System.Drawing.Point(380,390)
 $SetupScript.text                = "Create User"
 $SetupScript.TopMost             = $false
 $SetupScript.FormBorderStyle     = "FixedDialog"
@@ -12,67 +12,52 @@ $Domainname.text                 = $DC.Domain
 $Domainname.AutoSize             = $true
 $Domainname.width                = 25
 $Domainname.height               = 10
-$Domainname.location             = New-Object System.Drawing.Point(15,20)
+$Domainname.location             = New-Object System.Drawing.Point(15,25)
 $Domainname.Font                 = New-Object System.Drawing.Font('Microsoft Sans Serif',14)
-
-$UsernameBox                     = New-Object system.Windows.Forms.TextBox
-$UsernameBox.multiline           = $false
-$UsernameBox.width               = 100
-$UsernameBox.height              = 20
-$UsernameBox.location            = New-Object System.Drawing.Point(100,70)
-$UsernameBox.Font                = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
-
-$UsernameText                    = New-Object system.Windows.Forms.Label
-$UsernameText.text               = "Username"
-$UsernameText.AutoSize           = $true
-$UsernameText.width              = 25
-$UsernameText.height             = 10
-$UsernameText.location           = New-Object System.Drawing.Point(15,70)
-$UsernameText.Font               = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
 $LoginBox                        = New-Object system.Windows.Forms.TextBox
 $LoginBox.multiline              = $false
 $LoginBox.width                  = 100
 $LoginBox.height                 = 20
-$LoginBox.location               = New-Object System.Drawing.Point(260,120)
+$LoginBox.location               = New-Object System.Drawing.Point(260,70)
 $LoginBox.Font                   = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
 $LoginText                       = New-Object system.Windows.Forms.Label
-$LoginText.text                  = "Login"
+$LoginText.text                  = "Login:"
 $LoginText.AutoSize              = $true
 $LoginText.width                 = 25
 $LoginText.height                = 10
-$LoginText.location              = New-Object System.Drawing.Point(210,120)
+$LoginText.location              = New-Object System.Drawing.Point(210,70)
 $LoginText.Font                  = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
-$GivenNameBox                    = New-Object system.Windows.Forms.TextBox
-$GivenNameBox.multiline          = $false
-$GivenNameBox.width              = 100
-$GivenNameBox.height             = 20
-$GivenNameBox.location           = New-Object System.Drawing.Point(100,120)
-$GivenNameBox.Font               = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+$FirstnameBox                    = New-Object system.Windows.Forms.TextBox
+$FirstnameBox.multiline          = $false
+$FirstnameBox.width              = 100
+$FirstnameBox.height             = 20
+$FirstnameBox.location           = New-Object System.Drawing.Point(100,70)
+$FirstnameBox.Font               = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
-$GivenNameText                   = New-Object system.Windows.Forms.Label
-$GivenNameText.text              = "GivenName"
-$GivenNameText.AutoSize          = $true
-$GivenNameText.width             = 25
-$GivenNameText.height            = 10
-$GivenNameText.location          = New-Object System.Drawing.Point(15,120)
-$GivenNameText.Font              = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+$FirstnameText                   = New-Object system.Windows.Forms.Label
+$FirstnameText.text              = "First name:"
+$FirstnameText.AutoSize          = $true
+$FirstnameText.width             = 25
+$FirstnameText.height            = 10
+$FirstnameText.location          = New-Object System.Drawing.Point(15,70)
+$FirstnameText.Font              = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
-$SurnameBox                      = New-Object system.Windows.Forms.TextBox
-$SurnameBox.multiline            = $false
-$SurnameBox.width                = 260
-$SurnameBox.height               = 20
-$SurnameBox.location             = New-Object System.Drawing.Point(100,150)
-$SurnameBox.Font                 = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+$LastnameBox                     = New-Object system.Windows.Forms.TextBox
+$LastnameBox.multiline           = $false
+$LastnameBox.width               = 260
+$LastnameBox.height              = 20
+$LastnameBox.location            = New-Object System.Drawing.Point(100,100)
+$LastnameBox.Font                = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
-$SurnameText                     = New-Object system.Windows.Forms.Label
-$SurnameText.text                = "Surname"
-$SurnameText.AutoSize            = $true
-$SurnameText.width               = 25
-$SurnameText.height              = 10
-$SurnameText.location            = New-Object System.Drawing.Point(15,150)
-$SurnameText.Font                = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+$LastnameText                    = New-Object system.Windows.Forms.Label
+$LastnameText.text               = "Last name:"
+$LastnameText.AutoSize           = $true
+$LastnameText.width              = 25
+$LastnameText.height             = 10
+$LastnameText.location           = New-Object System.Drawing.Point(15,100)
+$LastnameText.Font               = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
-$SetupScript.controls.AddRange(@($Domainname, $UsernameBox, $UsernameText, $LoginBox, $LoginText, $GivenNameBox, $GivenNameText, $SurnameBox, $SurnameText))
+$SetupScript.controls.AddRange(@($Domainname, $LoginBox, $LoginText, $FirstnameBox, $FirstnameText, $LastnameBox, $LastnameText))
