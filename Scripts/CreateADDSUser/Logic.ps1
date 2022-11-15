@@ -1,4 +1,3 @@
-$DC = Get-ADDomainController
 
 
 <# Make input boxes, with all the diffrent user credentials.

@@ -8,7 +8,7 @@ $SetupScript.TopMost             = $false
 $SetupScript.FormBorderStyle     = "FixedDialog"
 
 $Domainname                      = New-Object system.Windows.Forms.Label
-$Domainname.text                 = $DC.Domain
+$Domainname.text                 = (Get-ADDomainController).Domain
 $Domainname.AutoSize             = $true
 $Domainname.width                = 25
 $Domainname.height               = 10
@@ -60,4 +60,34 @@ $LastnameText.height             = 10
 $LastnameText.location           = New-Object System.Drawing.Point(15,100)
 $LastnameText.Font               = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
-$SetupScript.controls.AddRange(@($Domainname, $LoginBox, $LoginText, $FirstnameBox, $FirstnameText, $LastnameBox, $LastnameText))
+$PasswordBox                     = New-Object system.Windows.Forms.TextBox
+$PasswordBox.multiline           = $false
+$PasswordBox.width               = 210
+$PasswordBox.height              = 20
+$PasswordBox.location            = New-Object System.Drawing.Point(150,130)
+$PasswordBox.Font                = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+
+$PasswordText                    = New-Object system.Windows.Forms.Label
+$PasswordText.text               = "Password:"
+$PasswordText.AutoSize           = $true
+$PasswordText.width              = 25
+$PasswordText.height             = 10
+$PasswordText.location           = New-Object System.Drawing.Point(15,130)
+$PasswordText.Font               = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+
+$ConfirmPasswordBox              = New-Object system.Windows.Forms.TextBox
+$ConfirmPasswordBox.multiline    = $false
+$ConfirmPasswordBox.width        = 210
+$ConfirmPasswordBox.height       = 20
+$ConfirmPasswordBox.location     = New-Object System.Drawing.Point(150,160)
+$ConfirmPasswordBox.Font         = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+
+$ConfirmPasswordText             = New-Object system.Windows.Forms.Label
+$ConfirmPasswordText.text        = "Confirm Password:"
+$ConfirmPasswordText.AutoSize    = $true
+$ConfirmPasswordText.width       = 25
+$ConfirmPasswordText.height      = 10
+$ConfirmPasswordText.location    = New-Object System.Drawing.Point(15,160)
+$ConfirmPasswordText.Font        = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+
+$SetupScript.controls.AddRange(@($Domainname, $LoginBox, $LoginText, $FirstnameBox, $FirstnameText, $LastnameBox, $LastnameText, $PasswordText, $PasswordBox, $ConfirmPasswordText, $ConfirmPasswordBox))
