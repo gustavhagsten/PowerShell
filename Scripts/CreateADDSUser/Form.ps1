@@ -12,8 +12,8 @@ $Domainname.text                 = (Get-ADDomainController).Domain
 $Domainname.AutoSize             = $true
 $Domainname.width                = 25
 $Domainname.height               = 10
-$Domainname.location             = New-Object System.Drawing.Point(15,25)
-$Domainname.Font                 = New-Object System.Drawing.Font('Microsoft Sans Serif',14)
+$Domainname.location             = New-Object System.Drawing.Point(15,20)
+$Domainname.Font                 = New-Object System.Drawing.Font('Microsoft Sans Serif',15)
 
 $LoginBox                        = New-Object system.Windows.Forms.TextBox
 $LoginBox.multiline              = $false
@@ -90,4 +90,18 @@ $ConfirmPasswordText.height      = 10
 $ConfirmPasswordText.location    = New-Object System.Drawing.Point(15,160)
 $ConfirmPasswordText.Font        = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
-$SetupScript.controls.AddRange(@($Domainname, $LoginBox, $LoginText, $FirstnameBox, $FirstnameText, $LastnameBox, $LastnameText, $PasswordText, $PasswordBox, $ConfirmPasswordText, $ConfirmPasswordBox))
+$OUList                       = New-Object system.Windows.Forms.ComboBox
+$OUList.text                  = "Organizational Units"
+$OUList.width                 = 160
+$OUList.height                = 20
+$OUList.location              = New-Object System.Drawing.Point(15,200)
+$OUList.Font                  = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+
+$SGList                       = New-Object system.Windows.Forms.ComboBox
+$SGList.text                  = "Security Groups"
+$SGList.width                 = 160
+$SGList.height                = 20
+$SGList.location              = New-Object System.Drawing.Point(200,200)
+$SGList.Font                  = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+
+$SetupScript.controls.AddRange(@($Domainname, $LoginBox, $LoginText, $FirstnameBox, $FirstnameText, $LastnameBox, $LastnameText, $PasswordText, $PasswordBox, $ConfirmPasswordText, $ConfirmPasswordBox, $OUList, $SGList))

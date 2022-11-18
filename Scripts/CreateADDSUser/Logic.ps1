@@ -16,8 +16,6 @@ function CreateADDSUser{
 <# Select OU and SG if it exits
 #>
 
-# List all organizationalUnits
-Get-ADOrganizationalUnit -Filter 'Name -like "*"'
+
 
 # Get all groups
-Get-ADGroup -Filter 'Name -like "*"'
