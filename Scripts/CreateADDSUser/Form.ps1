@@ -90,18 +90,31 @@ $ConfirmPasswordText.height      = 10
 $ConfirmPasswordText.location    = New-Object System.Drawing.Point(15,160)
 $ConfirmPasswordText.Font        = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
-$OUList                       = New-Object system.Windows.Forms.ComboBox
-$OUList.text                  = "Organizational Units"
-$OUList.width                 = 160
-$OUList.height                = 20
-$OUList.location              = New-Object System.Drawing.Point(15,200)
-$OUList.Font                  = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+$OUList                          = New-Object system.Windows.Forms.ComboBox
+$OUList.text                     = "Organizational Units"
+$OUList.width                    = 160
+$OUList.height                   = 20
+$OUList.location                 = New-Object System.Drawing.Point(15,200)
+$OUList.Font                     = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
-$SGList                       = New-Object system.Windows.Forms.ComboBox
-$SGList.text                  = "Security Groups"
-$SGList.width                 = 160
-$SGList.height                = 20
-$SGList.location              = New-Object System.Drawing.Point(200,200)
-$SGList.Font                  = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+$SGList                          = New-Object system.Windows.Forms.ComboBox
+$SGList.text                     = "Security Groups"
+$SGList.width                    = 160
+$SGList.height                   = 20
+$SGList.location                 = New-Object System.Drawing.Point(200,200)
+$SGList.Font                     = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
-$SetupScript.controls.AddRange(@($Domainname, $LoginBox, $LoginText, $FirstnameBox, $FirstnameText, $LastnameBox, $LastnameText, $PasswordText, $PasswordBox, $ConfirmPasswordText, $ConfirmPasswordBox, $OUList, $SGList))
+$ListView                        = New-Object system.Windows.Forms.ListView
+$ListView.text                   = "listView"
+$ListView.width                  = 345
+$ListView.height                 = 90
+$ListView.location               = New-Object System.Drawing.Point(15,240)
+
+$CreateUserButton                = New-Object system.Windows.Forms.Button
+$CreateUserButton.text           = "Create User"
+$CreateUserButton.width          = 345
+$CreateUserButton.height         = 30
+$CreateUserButton.location       = New-Object System.Drawing.Point(15,340)
+$CreateUserButton.Font           = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+
+$SetupScript.controls.AddRange(@($Domainname, $LoginBox, $LoginText, $FirstnameBox, $FirstnameText, $LastnameBox, $LastnameText, $PasswordText, $PasswordBox, $ConfirmPasswordText, $ConfirmPasswordBox, $OUList, $SGList, $ListView, $CreateUserButton))
