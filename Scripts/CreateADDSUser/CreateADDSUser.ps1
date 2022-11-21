@@ -1,14 +1,6 @@
 # Import Logic
 . $PSScriptRoot\Logic.ps1
 
-# Select Domain Controller
-
-
-# Add User 
-
-
-# Select OU and SG
-
 
 
 # Load GUI
@@ -16,18 +8,19 @@
 
 # List all organizationalUnits
 $OU = Get-ADOrganizationalUnit -Filter 'Name -like "*"'
-
 foreach ($item in $OU) {
     [void] $OUList.Items.Add($item.Name)
 }
 
 # List all SG
 $SG = Get-ADGroup -Filter 'Name -like "*"'
-
 foreach ($item in $SG) {
-    [void] $SGList.Items.Add($item.Name)
+    if ($item.Name.Startswith("SG")) {
+        [void] $SGList.Items.Add($item.Name)
+    }
 }
 
+$CreateUserButton.Add_Click($CreateUser)
 
 # Start GUI
 [void]$SetupScript.ShowDialog()

@@ -1,21 +1,15 @@
-
-
-<# Make input boxes, with all the diffrent user credentials.
-- Make a TextBox.
-- Make a CheckBox.
-- Make a CreateUser button, that check the inputs fields.
-
-#>
-function CreateADDSUser{
+# Make input boxes, with all the diffrent user credentials.
+function CreateADDSUser {
     #Username is a made with $Firstname plus $Lastname
-    param ( $Username, $Firstname, $Lastname, $LoginName )
+    param ( $Username, $Firstname, $Lastname, $LoginName, $Password)
 
-    New-ADUser -Name $Username -GivenName $Firstname -Surname $Lastname -SamAccountName $LoginName -Path "OU=DomainUsers,DC=DomainTest,DC=local" -AccountPassword(Read-Host -AsSecureString "Input Password") -Enabled $true
+    New-ADUser -Name $Username -GivenName $Firstname -Surname $Lastname -SamAccountName $LoginName -Path "OU=Sale,DC=DomainTest,DC=local" -AccountPassword $Password -Enabled $true
 }
 
-<# Select OU and SG if it exits
-#>
+function CreateUser {
+    if ($PasswordBox.Text -eq $ConfirmPasswordBox.Text) {
+        
+    }
+}
 
-
-
-# Get all groups
+# Select OU and SG if it exits
