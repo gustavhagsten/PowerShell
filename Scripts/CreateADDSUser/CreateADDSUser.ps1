@@ -20,7 +20,7 @@ foreach ($item in $SG) {
     }
 }
 
-$CreateUserButton.Add_Click($CreateUser)
+$CreateUserButton.Add_Click({ New-User })
 
 # Start GUI
 [void]$SetupScript.ShowDialog()
