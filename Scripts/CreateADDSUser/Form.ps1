@@ -5,7 +5,7 @@ $SetupScript                        = New-Object system.Windows.Forms.Form
 $SetupScript.ClientSize             = New-Object System.Drawing.Point(380,390)
 $SetupScript.text                   = "Create User"
 $SetupScript.TopMost                = $false
-$SetupScript.FormBorderStyle        = "FixedDialog"
+# $SetupScript.FormBorderStyle        = "FixedDialog"
 
 $Domainname                         = New-Object system.Windows.Forms.Label
 $Domainname.text                    = (Get-ADDomainController).Domain

@@ -14,11 +14,18 @@ function New-ADDSUser {
 
 function New-User {
 
-    # Check if passwords match
-    if ($PasswordBox.Text -ne $ConfirmPasswordBox.Text) {
-        Write-Host "Passwords need to match!"
+    $Password = $false
+    while ($Password -eq $false) {
+        # Check if passwords match
+        if ($PasswordBox.Text -ne $ConfirmPasswordBox.Text) {
+            Write-Host "Passwords need to match!"
+        }
+        else {
+            $Password -eq $true
+        }
+
+        # Create User on Domain
+        New-ADDSUser -Firstname $FirstnameBox.Text -Lastname $LastnameBox.Text -LoginName $LoginBox.Text -Password $ConfirmPasswordBox.Text
     }
 
-    # Create User on Domain
-    New-ADDSUser -Firstname $FirstnameBox.Text -Lastname $LastnameBox.Text -LoginName $LoginBox.Text -Password $ConfirmPasswordBox.Text
 }
