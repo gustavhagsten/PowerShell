@@ -5,7 +5,7 @@ function New-ADDSUser {
 
     $SecurePassword = ConvertTo-SecureString $Password -AsPlainText -Force
 
-    New-ADUser -Name "$Firstname $Lastname" -GivenName $Firstname -Surname $Lastname -SamAccountName $LoginName -Path "OU=Sale,DC=DomainTest,DC=local" -AccountPassword $SecurePassword -Enabled $true
+    New-ADUser -Name "$Firstname $Lastname" -GivenName $Firstname -Surname $Lastname -SamAccountName $LoginName -Path "OU=$OU,DC=DomainTest,DC=local" -AccountPassword $SecurePassword -Enabled $true
 }
 
 
@@ -14,18 +14,29 @@ function New-ADDSUser {
 
 function New-User {
 
-    $Password = $false
-    while ($Password -eq $false) {
-        # Check if passwords match
-        if ($PasswordBox.Text -ne $ConfirmPasswordBox.Text) {
-            Write-Host "Passwords need to match!"
-        }
-        else {
-            $Password -eq $true
-        }
-
-        # Create User on Domain
-        New-ADDSUser -Firstname $FirstnameBox.Text -Lastname $LastnameBox.Text -LoginName $LoginBox.Text -Password $ConfirmPasswordBox.Text
+    # Check if passwords match
+    if ($PasswordBox.Text -ne $ConfirmPasswordBox.Text) {
+        Write-Host "Passwords need to match!"
+        return 
     }
 
+    # Check Organizational Unit
+    if ($OUList.Text -eq "Organizational Units") {
+        Write-Host "You Need to select a Organizational Units"
+        return
+    }
+    else {
+        $OU = $OUList.Text
+    }
+
+
+    # Create User on Domain
+    New-ADDSUser -Firstname $FirstnameBox.Text -Lastname $LastnameBox.Text -LoginName $LoginBox.Text -Password $ConfirmPasswordBox.Text
+
+    Write-Host $LoginBox.Text "is created."
+
+}
+
+function Test-Function{
+    Write-Host     
 }

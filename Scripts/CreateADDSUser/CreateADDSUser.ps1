@@ -21,6 +21,7 @@ foreach ($item in $SG) {
 }
 
 $CreateUserButton.Add_Click({ New-User })
+#$CreateUserButton.Add_Click({ Test-Function })
 
 # Start GUI
 [void]$SetupScript.ShowDialog()
