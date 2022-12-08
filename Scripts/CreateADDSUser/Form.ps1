@@ -2,10 +2,10 @@ Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $SetupScript                        = New-Object system.Windows.Forms.Form
-$SetupScript.ClientSize             = New-Object System.Drawing.Point(380,390)
+$SetupScript.ClientSize             = New-Object System.Drawing.Point(380,290)
 $SetupScript.text                   = "Create User"
 $SetupScript.TopMost                = $false
-# $SetupScript.FormBorderStyle        = "FixedDialog"
+$SetupScript.FormBorderStyle        = "FixedDialog"
 
 $Domainname                         = New-Object system.Windows.Forms.Label
 $Domainname.text                    = (Get-ADDomainController).Domain
@@ -116,7 +116,7 @@ $CreateUserButton                   = New-Object system.Windows.Forms.Button
 $CreateUserButton.text              = "Create User"
 $CreateUserButton.width             = 345
 $CreateUserButton.height            = 30
-$CreateUserButton.location          = New-Object System.Drawing.Point(15,340)
+$CreateUserButton.location          = New-Object System.Drawing.Point(15,240)
 $CreateUserButton.Font              = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
-$SetupScript.controls.AddRange(@($Domainname, $LoginBox, $LoginText, $FirstnameBox, $FirstnameText, $LastnameBox, $LastnameText, $PasswordText, $PasswordBox, $ConfirmPasswordText, $ConfirmPasswordBox, $OUList, $SGList, $ListView, $CreateUserButton))
+$SetupScript.controls.AddRange(@($Domainname, $LoginBox, $LoginText, $FirstnameBox, $FirstnameText, $LastnameBox, $LastnameText, $PasswordText, $PasswordBox, $ConfirmPasswordText, $ConfirmPasswordBox, $OUList, $SGList, $CreateUserButton))
