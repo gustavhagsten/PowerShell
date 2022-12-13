@@ -16,7 +16,8 @@ function New-User {
 
     # Check if passwords match
     if ($PasswordBox.Text -ne $ConfirmPasswordBox.Text) {
-        Write-Host "Passwords need to match!"
+#        Write-Host "Passwords need to match!"
+        [System.Windows.MessageBox]::Show("Passwords need to match!")
         return 
     }
 
